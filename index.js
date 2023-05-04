@@ -4,8 +4,6 @@ const movieMap=new Map()
 //get ul elements
 const list=document.getElementById('list')
 
-
-
 let str=""
 let movieTitle=""
 
@@ -17,7 +15,6 @@ function handleBackspace(str){
 //adding DOM element
 function AddToDOM(movieKey){
     // const list=document.getElementById('list')
-
     const listMap=movieMap.get(movieKey)
     if(listMap!=null){
         for(let i=0;i<listMap.length;i++){
@@ -83,10 +80,12 @@ async function fetchFunction(movieTitle) {
 
 
  function handleKeyPress(e) {
-    if(e.data==" "){
-     return
-    }
+    // if(e.data==" "){
+    //  return
+    // }
     const a=document.getElementById("s1").value
+    //.replace(/  +/g, ' ')
+    console.log(a.trim().replace(/  +/g, ' '))
     fetchFunction(a.trim().replace(/  +/g, ' '))
  }
 
