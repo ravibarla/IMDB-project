@@ -19,8 +19,6 @@ function AddToDOM(movieKey){
     // const list=document.getElementById('list')
 
     const listMap=movieMap.get(movieKey)
-    // console.log(listMap)
-    // console.log("inside addtodom :"+movieKey)
     if(listMap!=null){
         for(let i=0;i<listMap.length;i++){
             const li=document.createElement('li')
@@ -29,13 +27,10 @@ function AddToDOM(movieKey){
             `
             ${listMap[i].title}
             `
-            // console.log(i)
-            // console.log(`${listMap[i].title}`)
             list.append(li)      
         }    
     }
     else{
-        // console.log(movieKey)
         fetchFunction(movieKey)
     }
 }
@@ -55,16 +50,12 @@ function renderList(movieKey) {
  
  //fetching the result from the IMDB api collection 
 async function fetchFunction(movieTitle) {
-    // console.log(movieTitle)
         const movieList=[]
-        const response=await fetch(`http://www.omdbapi.com/?s=${movieTitle}&apikey=b0729fb3`)
+        const response=await fetch(`https://www.omdbapi.com/?s=${movieTitle}&apikey=b0729fb3`)
         const data=await response.json()
         if(data.Response=="True"){
         // console.log(data)
            for(let i=0;i<data.Search.length;i++){
-            // if(data.Search[i].Title.startsWith(movieTitle)){
-            //     console.log("hii")
-            // // }
             movie={
                 title:null,
                 year:null,
@@ -91,40 +82,12 @@ async function fetchFunction(movieTitle) {
  }
 
 
-
-
-//  var pattern = /^[a-zA-Z0-9]+$/;
-  
-//  return pattern.test(input);
-//handle every key press
-
  function handleKeyPress(e) {
-    // var pattern = /^[a-zA-Z0-9\b]+$/;
-    // if(pattern.test(e.key)){
-    //     //handling whenever backspace is pressed
-    //    if(e.key=="Backspace"){
-    //        str=handleBackspace(str)
-    //        //set the new input value 
-    //        movieTitle=str
-    //        resetListElement()
-    //        // console.log("inside backspace :"+movieTitle)
-    //        renderList(movieTitle)
-    //        e.preventDefault()
-    //        return
-    //    }
-    //    else{
-    //        str+=e.key
-    //        console.log(str)
-    //        fetchFunction(str)
-    //    }
-    // }
     if(e.data==" "){
      return
     }
     const a=document.getElementById("s1").value
-    // console.log(a)
-    
-    fetchFunction(a)
+    fetchFunction(a.trim().replace(/  +/g, ' '))
  }
 
  //keyup
