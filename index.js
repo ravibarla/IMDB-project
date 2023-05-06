@@ -4,6 +4,9 @@ const movieMap=new Map()
 //get ul elements
 const list=document.getElementById('list')
 
+//get div element
+const div=document.getElementById("main")
+
 let str=""
 let movieTitle=""
 
@@ -12,18 +15,21 @@ function handleBackspace(str){
     return str.substring(0,str.length-1)
 }
 
-//adding DOM element
-function AddToDOM(movieKey){
-    // const list=document.getElementById('list')
+//adding DOM element to list
+function AddToDOMList(movieKey){
+    
     const listMap=movieMap.get(movieKey)
     if(listMap!=null){
         for(let i=0;i<listMap.length;i++){
             const li=document.createElement('li')
-            li.setAttribute("class","items")
+            li.setAttribute("class","items border border-light ")
+            let dataId=JSON.stringify(listMap[i])
             li.innerHTML=
             `
             ${listMap[i].title}
             `
+            li.setAttribute("data-id",dataId)
+            li.addEventListener("click",handleListCLick)
             list.append(li)      
         }    
     }
@@ -32,10 +38,94 @@ function AddToDOM(movieKey){
     }
 }
 
-//rendor each movies 
-function renderList(movieKey) { 
-    AddToDOM(movieKey)
+
+//handle list click
+function handleListCLick(e) { 
+    let targetString=e.currentTarget.dataset.id
+    let targetJson=JSON.parse(e.currentTarget.dataset.id)
+    window.localStorage.setItem("movieSelected",targetJson.id)
+    window.location.href="movie.html"
  }
+
+//adding DOM element to Div
+function AddToDOMDiv(movieKey){
+    const listMap=movieMap.get(movieKey)
+    if(listMap!=null){
+        for(let i=0;i<listMap.length;i++){
+            const li=document.createElement('li')
+            const favElement=document.createElement('div')
+            const divElement=document.createElement('div')
+            li.setAttribute("class","items border border-primary p-2 col-10")
+            // li.setAttribute("onclick",handleMovieListCLick(`${listMap[i].title}`))
+            li.innerHTML=
+            `
+            <div>${listMap[i].title}</div>
+            <div>${listMap[i].year}</div>
+            <div>${listMap[i].type}</div>
+            <div>
+            <img src="${listMap[i].poster}" alt="image not available">
+         
+            </div>
+            `
+            favElement.innerHTML=
+            `
+            <button type="button" style="width:200px" id="favBtn" name="btn">fav</button>
+            `
+            favElement.onclick=(e)=>{
+                // console.log(e.target.id)
+                if(e.target.id=="removeFavBtn"){
+                    e.target.setAttribute("id","favBtn")
+                  
+                    // e.target.innerHTML="fav"
+                    // console.log(e.target.innerHTML)
+                }
+                if(e.target.id=="favBtn"){
+                    e.target.setAttribute("id","removeFavBtn")
+                   
+                    // e.target.innerHTML="remove"
+                }
+                document.getElementById("favBtn").innerHTML="fav"
+                document.getElementById("removeFavBtn").innerHTML="remove"
+                const a=movieSet.add(listMap[i].id)
+                const b=Array.from(a)
+                window.localStorage.setItem("favMovie",JSON.stringify(b))
+                // document.getElementById("favBtn").innerHTML="remove"
+                // document.getElementById("favBtn").setAttribute("id","removeFavBtn")
+            }
+            favElement.setAttribute("class","col-2")
+            div.append(li)      
+            div.append(favElement)
+
+            li.onclick=()=>{
+                // console.log(listMap[i].id)
+                window.localStorage.setItem("movieSelected",listMap[i].id)
+                window.location.href="movie.html"
+            }
+        
+        } 
+    }
+    else{
+        fetchFunction(movieKey)
+    }
+}
+
+
+var movieSet=new Set()
+function handleFavCLick(movieId) {
+    movieSet.set(movieId)
+    window.localStorage.setItem("favMovie",movieSet)
+}
+
+//rendor each movies 
+function renderList(movieKey,element) { 
+    if(element=="list"){
+        AddToDOMList(movieKey)
+    }
+    if(element=="div"){
+        AddToDOMDiv(movieKey)
+    }
+ }
+
 
  //resetting list element 
  function resetListElement() { 
@@ -51,7 +141,6 @@ async function fetchFunction(movieTitle) {
         const response=await fetch(`https://www.omdbapi.com/?s=${movieTitle}&apikey=b0729fb3`)
         const data=await response.json()
         if(data.Response=="True"){
-        // console.log(data)
            for(let i=0;i<data.Search.length;i++){
             movie={
                 title:null,
@@ -60,6 +149,7 @@ async function fetchFunction(movieTitle) {
                 type:null,
                 poster:null
             }
+
             //setting the movie object
             movie.id=data.Search[i].imdbID
             movie.title=data.Search[i].Title
@@ -69,27 +159,43 @@ async function fetchFunction(movieTitle) {
             //pushing movie objects to a movie List
             movieList.push(movie)
            }
+           resetDivElement()
            movieMap.set(movieTitle,movieList)
            resetListElement()
-           renderList(movieTitle)
+           renderList(movieTitle,"list")
         }
         else{
             resetListElement()
         }
  }
 
-
+var i=""
  function handleKeyPress(e) {
-    // if(e.data==" "){
-    //  return
-    // }
     const a=document.getElementById("s1").value
-    //.replace(/  +/g, ' ')
-    console.log(a.trim().replace(/  +/g, ' '))
+    i=a.trim().replace(/  +/g, ' ')
     fetchFunction(a.trim().replace(/  +/g, ' '))
  }
+
+
+
 
  //keyup
  document.getElementById('s1').addEventListener("input",handleKeyPress)
 
 
+
+ document.getElementById('searchButton').addEventListener("click",function(){
+    resetListElement()
+    // document.getElementById("main").innerHTML="search "+' " ' +`${i}`+' " '
+    renderList(i,"div")
+ })
+
+
+
+function resetDivElement(){
+    const a=document.getElementById("main")
+
+    while (a.firstChild) {
+        a.removeChild(a.lastChild);
+      }
+}

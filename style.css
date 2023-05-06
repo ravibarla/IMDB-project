@@ -1,0 +1,30 @@
+.tmp{
+    border: 2px solid white;
+    margin-left: 46%;
+    width: 34%;
+    position:relative; 
+    display: inline-block;
+    overflow: hidden;
+}
+
+.tmp li{
+    list-style: none;
+    cursor: pointer;
+}
+
+.tmp li:hover{
+   background-color: beige;
+}
+#main li{
+    list-style: none;
+    /* height: 200px; */
+}
+
+li{
+    list-style: none;
+}
+
+.items{
+    height: 30%;
+}
+
