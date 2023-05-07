@@ -71,26 +71,27 @@ function AddToDOMDiv(movieKey){
             `
             <button type="button" style="width:200px" id="favBtn" name="btn">fav</button>
             `
-            favElement.onclick=(e)=>{
-                // console.log(e.target.id)
-                if(e.target.id=="removeFavBtn"){
-                    e.target.setAttribute("id","favBtn")
-                  
-                    // e.target.innerHTML="fav"
-                    // console.log(e.target.innerHTML)
-                }
+            favElement.onclick=(e)=>{ 
+                var a=new Set()
+                var b=[]
                 if(e.target.id=="favBtn"){
+                    a=movieSet.add(listMap[i].id)
+                    b=Array.from(a)    
+                    console.log(a)
                     e.target.setAttribute("id","removeFavBtn")
-                   
-                    // e.target.innerHTML="remove"
+                    e.target.innerHTML="remove"
+                    window.localStorage.setItem("favMovie",JSON.stringify(b))
                 }
-                document.getElementById("favBtn").innerHTML="fav"
-                document.getElementById("removeFavBtn").innerHTML="remove"
-                const a=movieSet.add(listMap[i].id)
-                const b=Array.from(a)
-                window.localStorage.setItem("favMovie",JSON.stringify(b))
-                // document.getElementById("favBtn").innerHTML="remove"
-                // document.getElementById("favBtn").setAttribute("id","removeFavBtn")
+                else if(e.target.id=="removeFavBtn"){
+                
+                    e.target.setAttribute("id","favBtn")
+                    e.target.innerHTML="fav"
+                    movieSet.delete(listMap[i].id)
+                    a=movieSet
+                    b=Array.from(a)
+                    window.localStorage.setItem("favMovie",JSON.stringify(b))
+                    
+                }
             }
             favElement.setAttribute("class","col-2")
             div.append(li)      

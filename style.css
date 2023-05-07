@@ -28,3 +28,6 @@ li{
     height: 30%;
 }
 
+#removeFavBtn{
+    background-color: cyan;
+}
