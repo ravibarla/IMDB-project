@@ -77,7 +77,7 @@ function AddToDOMDiv(movieKey){
                 if(e.target.id=="favBtn"){
                     a=movieSet.add(listMap[i].id)
                     b=Array.from(a)    
-                    console.log(a)
+                    // console.log(a)
                     e.target.setAttribute("id","removeFavBtn")
                     e.target.innerHTML="remove"
                     window.localStorage.setItem("favMovie",JSON.stringify(b))
@@ -187,9 +187,12 @@ var i=""
 
  document.getElementById('searchButton').addEventListener("click",function(){
     resetListElement()
-    // document.getElementById("main").innerHTML="search "+' " ' +`${i}`+' " '
     renderList(i,"div")
+
  })
+
+
+
 
 
 
@@ -200,3 +203,12 @@ function resetDivElement(){
         a.removeChild(a.lastChild);
       }
 }
+
+// document.addEventListener("keypress",handleEnterKey)
+
+// function handleEnterKey(e){
+//     if(e.key=="Enter"){
+//          resetListElement()
+//          renderList(i,"div")
+//     }
+// }
