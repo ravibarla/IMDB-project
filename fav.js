@@ -34,7 +34,6 @@ async function fetchMovieByTitle(id){
     `
     const movie=document.getElementById("favs")
     li.onclick=()=>{
-        // console.log(data.imdbID)
         window.localStorage.setItem("movieSelected",data.imdbID)
         window.location.href="movie.html"
     }

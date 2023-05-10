@@ -17,7 +17,6 @@ function handleBackspace(str){
 
 //adding DOM element to list
 function AddToDOMList(movieKey){
-    
     const listMap=movieMap.get(movieKey)
     if(listMap!=null){
         for(let i=0;i<listMap.length;i++){
@@ -56,7 +55,6 @@ function AddToDOMDiv(movieKey){
             const favElement=document.createElement('div')
             const divElement=document.createElement('div')
             li.setAttribute("class","items border border-primary p-2 col-10")
-            // li.setAttribute("onclick",handleMovieListCLick(`${listMap[i].title}`))
             li.innerHTML=
             `
             <div>${listMap[i].title}</div>
@@ -77,7 +75,6 @@ function AddToDOMDiv(movieKey){
                 if(e.target.id=="favBtn"){
                     a=movieSet.add(listMap[i].id)
                     b=Array.from(a)    
-                    // console.log(a)
                     e.target.setAttribute("id","removeFavBtn")
                     e.target.innerHTML="remove"
                     window.localStorage.setItem("favMovie",JSON.stringify(b))
@@ -96,9 +93,7 @@ function AddToDOMDiv(movieKey){
             favElement.setAttribute("class","col-2")
             div.append(li)      
             div.append(favElement)
-
             li.onclick=()=>{
-                // console.log(listMap[i].id)
                 window.localStorage.setItem("movieSelected",listMap[i].id)
                 window.location.href="movie.html"
             }
@@ -179,7 +174,6 @@ var i=""
 
 
 
-
  //keyup
  document.getElementById('s1').addEventListener("input",handleKeyPress)
 
@@ -203,12 +197,3 @@ function resetDivElement(){
         a.removeChild(a.lastChild);
       }
 }
-
-// document.addEventListener("keypress",handleEnterKey)
-
-// function handleEnterKey(e){
-//     if(e.key=="Enter"){
-//          resetListElement()
-//          renderList(i,"div")
-//     }
-// }
