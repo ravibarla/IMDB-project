@@ -4,16 +4,22 @@ const movieMap=new Map()
 //get ul elements
 const list=document.getElementById('list')
 
-//get div element
-const div=document.getElementById("main")
+//get mainElement 
+const mainElement=document.getElementById("main")
 
 let str=""
 let movieTitle=""
 
-//handle backspace
-function handleBackspace(str){
-    return str.substring(0,str.length-1)
-}
+
+
+
+//handle list click
+function handleListCLick(e) { 
+    let targetString=e.currentTarget.dataset.id
+    let targetJson=JSON.parse(e.currentTarget.dataset.id)
+    window.localStorage.setItem("movieSelected",targetJson.id)
+    window.location.href="movie.html"
+ }
 
 //adding DOM element to list
 function AddToDOMList(movieKey){
@@ -21,7 +27,7 @@ function AddToDOMList(movieKey){
     if(listMap!=null){
         for(let i=0;i<listMap.length;i++){
             const li=document.createElement('li')
-            li.setAttribute("class","items border border-light ")
+            li.setAttribute("class","items ")
             let dataId=JSON.stringify(listMap[i])
             li.innerHTML=
             `
@@ -38,13 +44,6 @@ function AddToDOMList(movieKey){
 }
 
 
-//handle list click
-function handleListCLick(e) { 
-    let targetString=e.currentTarget.dataset.id
-    let targetJson=JSON.parse(e.currentTarget.dataset.id)
-    window.localStorage.setItem("movieSelected",targetJson.id)
-    window.location.href="movie.html"
- }
 
 //adding DOM element to Div
 function AddToDOMDiv(movieKey){
@@ -54,7 +53,7 @@ function AddToDOMDiv(movieKey){
             const li=document.createElement('li')
             const favElement=document.createElement('div')
             const divElement=document.createElement('div')
-            li.setAttribute("class","items border border-primary p-2 col-10")
+            li.setAttribute("class","items  p-2 col-10")
             li.innerHTML=
             `
             <div>${listMap[i].title}</div>
@@ -64,35 +63,76 @@ function AddToDOMDiv(movieKey){
             <img src="${listMap[i].poster}" alt="image not available">
          
             </div>
+            <div style="border-top:1px solid white">
+            
+            
             `
+            // mainElement.style.border="2px solid green"
+            // <button type="button" style="width:200px" id="favBtn" name="btn">
             favElement.innerHTML=
             `
-            <button type="button" style="width:200px" id="favBtn" name="btn">fav</button>
+            <button type="button" style="width:200px" id="favBtn" name="btn">
+            <img id="fav" src="img/add.png" style="position:relative">
+            </button>
             `
             favElement.onclick=(e)=>{ 
                 var a=new Set()
                 var b=[]
                 if(e.target.id=="favBtn"){
+                    // console.log(e.target)
                     a=movieSet.add(listMap[i].id)
                     b=Array.from(a)    
                     e.target.setAttribute("id","removeFavBtn")
-                    e.target.innerHTML="remove"
+                    // e.target.innerHTML="remove"
+                    e.target.innerHTML=
+                    `
+                    <img id="rem" src="img/delete.png">
+                    `
                     window.localStorage.setItem("favMovie",JSON.stringify(b))
                 }
+                
                 else if(e.target.id=="removeFavBtn"){
                 
-                    e.target.setAttribute("id","favBtn")
-                    e.target.innerHTML="fav"
+                    e.target.setAttribute("id","favBtn"||e.target.id=="fav")
+                    // e.target.innerHTML="fav"
+                    e.target.innerHTML=
+                    `
+                    <img id="fav" src="img/add.png">
+                    `
+                    // e.target.setAttribute("id","rem")
+                    // e.target.setAttribute("src","img/delete.png")
                     movieSet.delete(listMap[i].id)
                     a=movieSet
                     b=Array.from(a)
                     window.localStorage.setItem("favMovie",JSON.stringify(b))
                     
                 }
+                else if(e.target.id=="fav"){
+               
+                    a=movieSet.add(listMap[i].id)
+                    b=Array.from(a)    
+                    e.target.setAttribute("id","rem")
+                    e.target.setAttribute("src","img/delete.png")
+                   
+                    window.localStorage.setItem("favMovie",JSON.stringify(b))
+                }
+                else if(e.target.id=="rem"){
+               
+              
+                    e.target.setAttribute("id","favBtn")
+                  
+                    e.target.setAttribute("id","fav")
+                    e.target.setAttribute("src","img/add.png")
+                    movieSet.delete(listMap[i].id)
+                    a=movieSet
+                    b=Array.from(a)
+                    window.localStorage.setItem("favMovie",JSON.stringify(b))
+                }
             }
             favElement.setAttribute("class","col-2")
-            div.append(li)      
-            div.append(favElement)
+            // favElement.style.border="2px solid red"
+            mainElement.append(li)      
+            mainElement.append(favElement)
             li.onclick=()=>{
                 window.localStorage.setItem("movieSelected",listMap[i].id)
                 window.location.href="movie.html"
@@ -129,8 +169,18 @@ function renderList(movieKey,element) {
     for(let count=items.length;count>0;count--){
         items[0].remove()
     }    
-  }
- 
+}
+
+
+//reset DIV elements
+function resetDivElement(){
+    const mainElement=document.getElementById("main")
+
+    while (mainElement.firstChild) {
+        mainElement.removeChild(mainElement.lastChild);
+      }
+}
+
  //fetching the result from the IMDB api collection 
 async function fetchFunction(movieTitle) {
         const movieList=[]
@@ -165,14 +215,16 @@ async function fetchFunction(movieTitle) {
         }
  }
 
-var i=""
+var inputKeyWithoutWhiteSpace=""
  function handleKeyPress(e) {
-    const a=document.getElementById("s1").value
-    i=a.trim().replace(/  +/g, ' ')
-    fetchFunction(a.trim().replace(/  +/g, ' '))
+    const inputKeyPress=document.getElementById("s1").value
+    inputKeyWithoutWhiteSpace=inputKeyPress.trim().replace(/  +/g, ' ')
+    
+    fetchFunction(inputKeyPress.trim().replace(/  +/g, ' '))
  }
 
 
+ 
 
  //keyup
  document.getElementById('s1').addEventListener("input",handleKeyPress)
@@ -181,19 +233,17 @@ var i=""
 
  document.getElementById('searchButton').addEventListener("click",function(){
     resetListElement()
-    renderList(i,"div")
-
+    resetDivElement()
+    renderList(inputKeyWithoutWhiteSpace,"div")
  })
 
 
 
-
-
-
-function resetDivElement(){
-    const a=document.getElementById("main")
-
-    while (a.firstChild) {
-        a.removeChild(a.lastChild);
-      }
-}
+//handle backspace
+// function handleBackspace(e){
+//     if(e.key=="Backspace"){
+//         resetDivElement()
+//     }
+//     handleKeyPress()
+//     // return str.substring(0,str.length-1)
+// }

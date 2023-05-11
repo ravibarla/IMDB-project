@@ -1,6 +1,6 @@
 .tmp{
-    border: 2px solid white;
-    margin-left: 46%;
+    /* border: 2px solid white; */
+    margin-left: 60%;
     width: 34%;
     position:relative; 
     display: inline-block;
@@ -13,8 +13,10 @@
 }
 
 .tmp li:hover{
-   background-color: beige;
+   /* background-color:rgba(245, 222, 179, 0.096); */
+   color: yellow;
 }
+
 #main li{
     list-style: none;
     /* height: 200px; */
@@ -28,11 +30,22 @@ li{
     height: 30%;
 }
 
-#removeFavBtn{
-    background-color: cyan;
+
+/* #removeFavBtn img{ */
+    /* background-color: rgb(255, 60, 0); */ 
+    /* background-color: black;
 }
 
 #bg{
     background-image: url("img/bg.jpg");
    height: 80vh;
-}
+   /* color: aliceblue; */
+   /* color: deepskyblue; */
+   
+/* } */
+
+/* #main{
+    padding-left: 0%;
+    padding-right: 0%;
+    border: 2px solid green;
+} */
