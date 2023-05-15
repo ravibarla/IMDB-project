@@ -17,6 +17,7 @@ The app is built using :-
 <br>1. HTML
 <br>2. CSS
 <br>3. VANILLA JAVASCRIPT
+<br>4. BOOTSTRAP
 
 
 
