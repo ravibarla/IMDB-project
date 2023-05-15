@@ -49,6 +49,15 @@ function AddToDOMList(movieKey){
 function AddToDOMDiv(movieKey){
     const listMap=movieMap.get(movieKey)
     if(listMap!=null){
+        
+        document.getElementById("main").innerHTML=
+        `
+        <div style="font-family: 'Merriweather', serif;font-size:40px;color: rgba(152, 152, 10, 0.613);">
+        Search for movie : ${movieKey}
+        </div>
+        
+        `
+        
         for(let i=0;i<listMap.length;i++){
             const li=document.createElement('li')
             const favElement=document.createElement('div')
