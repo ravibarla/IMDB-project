@@ -10,8 +10,12 @@ const mainElement=document.getElementById("main")
 let str=""
 let movieTitle=""
 
-
-
+document.getElementById("main").innerHTML=
+`
+<div style="font-family: 'Merriweather', serif;font-size:40px;color: rgba(152, 152, 10, 0.613);">
+please search for your movies . . . .
+</div>
+`
 
 //handle list click
 function handleListCLick(e) { 
