@@ -56,7 +56,7 @@ Instructions on how to use them in your own application are linked below.
    [bootstrap]: <https://getbootstrap.com/>
 
 
-      ## screenshots 
+## Screenshots
    
    - Home page
    
