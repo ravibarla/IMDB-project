@@ -54,3 +54,22 @@ Instructions on how to use them in your own application are linked below.
    [jQuery]: <http://jquery.com>
    [JavaScript]: <https://developer.mozilla.org/en-US/docs/Web/JavaScript>
    [bootstrap]: <https://getbootstrap.com/>
+
+
+      ## screenshots 
+   
+   - Home page
+   
+![Alt text](home-page.png )
+- Movie page
+![Alt text](movie-page.png )
+  
+
+- favourite page
+![Alt text](favourite-page.png)
+
+-Search Option
+![Alt text](search.png)
+
+-Search Result
+![Alt text](search-result.png)
