@@ -1,24 +1,56 @@
-<br><br>Description :- This is a mini IMDB clone app.
-With following pages :-<br>
-<br>1.Home pages
-<br>2. Movie page
-<br>3. Favourite page
-<br><br>
-The Api used for fetching the movie data as follows:-
-<br>1. OMDB api  - https://www.omdbapi.com/
-<br><br>
-The app consist of features :-<br>
-<br>1. Input suggestion
-<br>2. Redirecting to movie page on selecting a movie
-<br>3. Adding as well as removing the movie to the favourite page from the home page
-<br>4. Removing the movie from the favourite page
-<br><br>
-The app is built using :-
-<br>1. HTML
-<br>2. CSS
-<br>3. VANILLA JAVASCRIPT
-<br>4. BOOTSTRAP
+# Mini-IMDB-Clone-App
+
+This is a mini IMDB Clone app Built using HTML,CSS and Javascript. The app uses official IMDB resource. 
+
+## Live Demo 
+
+https://ravibarla.github.io/IMDB-project/
+
+## Following pages 
+
+- Home pages
+- Movie page
+- Favourite page
+
+
+## Features
+
+- Input suggestion
+- Redirecting to movie page on selecting a movie
+- Adding as well as removing the movie to the favourite page from the home page
+- Removing the movie from the favourite page
+
+## The Api used for fetching the movie data as follows:-
+- OMDB api - https://www.omdbapi.com/
+
+
+## Tech
+
+Dillinger uses a number of open source projects to work properly:
+
+- [HTML] 
+- [CSS] 
+- [JQuery] 
+- [JavaScript] 
+- [bootstrap]
 
 
 
- Link :- https://ravibarla.github.io/IMDB-project/
+## Plugins
+
+Instructions on how to use them in your own application are linked below.
+
+| Plugin | README |
+| ------ | ------ |
+| GitHub | [plugins/github/README.md]
+
+
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+
+
+   [HTML]:<https://developer.mozilla.org/en-US/docs/Web/HTML>
+   [CSS]:<https://developer.mozilla.org/en-US/docs/Learn/CSS>
+   [jQuery]: <http://jquery.com>
+   [JavaScript]: <https://developer.mozilla.org/en-US/docs/Web/JavaScript>
+   [bootstrap]: <https://getbootstrap.com/>
